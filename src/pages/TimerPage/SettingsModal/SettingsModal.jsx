@@ -9,6 +9,13 @@ import {
   IconButton,
   ToggleButtonGroup,
   ToggleButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Divider,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { PlanTierCard } from "./PlanTierCard";
@@ -53,7 +60,7 @@ export function SettingsModal(props) {
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: "#1D2020",
-            height: "100%",
+            height: "100vh",
             width: "100%",
             position: "absolute",
             top: "50%",
@@ -126,9 +133,9 @@ export function SettingsModal(props) {
           gap: "10px",
         }}
       >
-        <Typography sx={{ color: "white" }}>Choose your study plan:</Typography>
-        <Box>
-          <ToggleButtonGroup
+        <Typography sx={{ color: "white", variant: "h4" }}>Choose your study plan:</Typography>
+        <Box sx={{ width: "80%" }}>
+        <ToggleButtonGroup
             color="primary"
             value={plan}
             exclusive
@@ -137,12 +144,19 @@ export function SettingsModal(props) {
             sx={{
               gap: "10px",
               width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
             }}
           >
             {Object.keys(plans).map((k) => (
               <ToggleButton
                 value={k}
-                sx={{ color: "white", textTransform: "lowercase" }}
+                sx={{ 
+                  color: "white", 
+                  textTransform: "lowercase",
+                  flex: 1,
+                  borderRadius: "8px",
+                }}
                 variant="outlined"
                 key={k}
               >
@@ -160,15 +174,49 @@ export function SettingsModal(props) {
         <Button
           variant="contained"
           sx={{
-            backgroundColor: "white",
+            backgroundColor: "#EAE5D3",
             color: "black",
             textTransform: "lowercase",
             width: "80%",
           }}
           onClick={handleCustomStart}
         >
-          Get started
+          apply
         </Button>
+        <Divider sx={{ 
+          width: "80%", 
+          backgroundColor: "white", 
+          opacity: 0.2,             
+          my: 2                     
+          }}
+       />
+        <TableContainer sx={{ width: "80%", height: "100%", overflowY: "auto" }}>
+        <Table stickyHeader size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell >
+                Time
+              </TableCell>
+              <TableCell >
+                Notes
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.learnedList.length > 0 ? props.learnedList?.map((item, index) => (
+              <TableRow key={index}>
+                <TableCell sx={{ color: "white" }}>{item.timestamp}</TableCell>
+                <TableCell sx={{ color: "white" }}>{item.content}</TableCell>
+              </TableRow>
+            )) : <TableRow>
+            <TableCell sx={{ color: "white" }}>-</TableCell>
+            <TableCell sx={{ color: "white" }}>Nothing yet</TableCell>
+          </TableRow> 
+          }
+          </TableBody>
+        </Table>
+      </TableContainer>
+
       </Box>
     </>
   );

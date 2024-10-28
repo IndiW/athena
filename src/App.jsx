@@ -5,7 +5,14 @@ import { TimerPage } from "./pages/TimerPage";
 
 const theme = createTheme({
   palette: {
-    type: "dark",
+    mode: "dark",
+    background: {
+      default: "#1D2020",
+      paper: "#1D2020",
+    },
+    primary: {
+      main: "#ffffff",
+    },
   },
 });
 

@@ -28,7 +28,7 @@ export function TimerPage() {
     type: "study",
   });
   const [timer, setTimer] = useState(customConfig.totalTime);
-  const [showLearningsDialog, setShowLearningsDialog] = useState(true);
+  const [showLearningsDialog, setShowLearningsDialog] = useState(false);
   const [learnedList, setLearnedList] = useState([]);
 
   const handleNewLearningsSubmit = (text) => {
@@ -49,15 +49,15 @@ export function TimerPage() {
     if (level < customConfig.totalCount) {
       setLevel((l) => l + 1);
     }
-    showLearningsDialog(true);
+    setShowLearningsDialog(true);
   };
 
   const handleStart = () => {
     setStart(!start);
   };
 
-  const getTime = (time) => {
-    if (time.s - 1 < 0 && time.m <= 0) {
+  const getTime = (time) => {   
+    if (time.s - 1 <= 0 && time.m <= 0) {
       resetTime();
       return customConfig.totalTime;
     }
@@ -197,6 +197,7 @@ export function TimerPage() {
                 textTransform: "lowercase",
                 letterSpacing: "2px",
                 width: "100%",
+                color: "white",
               }}
             >
               {start ? "Pause" : "Start"}
@@ -218,7 +219,7 @@ export function TimerPage() {
               Run it back
             </Button>
           )}
-          <SettingsModal onCustomStart={onCustomStart} />
+          <SettingsModal onCustomStart={onCustomStart} learnedList={learnedList} />
           <WhatILearnedModal
             open={showLearningsDialog}
             handleClose={() => setShowLearningsDialog(false)}

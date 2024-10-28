@@ -16,6 +16,7 @@ export function PlanTierCard({ title, time, goal, imgSrc }) {
         padding: "12px",
         gap: "10px",
         borderRadius: "10px",
+        color: "#1D2020",
       }}
     >
       {isLoading ? (
